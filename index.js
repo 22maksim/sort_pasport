@@ -26,16 +26,17 @@ const peopleWithVisa = [
 ];
 
 function allowVisa(withoutKillers) {
-  let actualDate = new Date();
-  actualDate = Date.parse(actualDate);
+  
   let withoutCriminal = withoutKillers.filter(item => item.criminalRecord !== true);
+  
   let answer = withoutCriminal.filter(item => {
     let pars = item.passportExpiration.split('.');
     pars = [pars[2], pars[1], pars[0]].join('-');
     pars = new Date(pars);
     pars = Date.parse(pars);
-    if (pars < actualDate) {
-      return pars
+    
+    if (pars < Date.now()) {
+      return true
     } else {
       false
     }
